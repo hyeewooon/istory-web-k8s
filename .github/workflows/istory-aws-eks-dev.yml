@@ -136,9 +136,12 @@ jobs:
         run: |
           curl -s https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh | bash
           sudo mv kustomize /usr/local/bin
+
       - name: 16. kustomize update image yaml
         run: |
-          kustomize edit set image istory=dagntong76/istory:${{ github.run_number }}
+          cd overlay/aws-dev
+          kustomize edit set image istory=hyeewooon/istory:${{ github.run_number }}
+
       - name: 17. push yaml
         run: |
           git config --global user.name 'github-actions[bot]'
