@@ -100,8 +100,8 @@ jobs:
       - name: 10.서비스 리포지토리 체크아웃
         uses: actions/checkout@v4
         with:
-          repository: dangtong76/istory-platform   # 바꾸기
-          ref: main # 바꾸기
+          repository: hyeewooon/istory-platform
+          ref: main
           path: .
           token: ${{ secrets.GIT_PAT }}
 
@@ -134,7 +134,8 @@ jobs:
 
       - name: 15. kustomize install
         run: |
-          <>
+          curl -s https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh | bash
+          sudo mv kustomize /usr/local/bin
       - name: 16. kustomize update image yaml
         run: |
           kustomize edit set image istory=dagntong76/istory:${{ github.run_number }}
