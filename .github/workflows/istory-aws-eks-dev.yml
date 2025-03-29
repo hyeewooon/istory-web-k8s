@@ -1,4 +1,4 @@
-#8
+#9
 name: istory-k8s-dev
 on:
   push:
@@ -140,7 +140,7 @@ jobs:
       - name: 16. kustomize update image yaml
         run: |
           cd overlay/aws-dev
-          kustomize edit set image istory=hyeewooon/istory:${{ github.run_number }}
+          kustomize edit set image ${{ secrets.DOCKER_USERNAME }}/istory=${{ secrets.DOCKER_USERNAME }}/istory:${{ github.run_number }}
 
       - name: 17. push yaml
         run: |
