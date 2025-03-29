@@ -99,19 +99,27 @@ jobs:
         run: |
           docker push ${{ secrets.DOCKER_USERNAME }}/istory:${{ env.DOCKER_TAG }}
 
-      - name: 10. Install kubectl
+      - name: 10.서비스 리포지토리 체크아웃
+        uses: actions/checkout@v4
+        with:
+          repository: hyeewooon/istory-platform
+          ref: main
+          path: .
+          token: ${{ secrets.GIT_PAT }}
+
+      - name: 11. Install kubectl
         run: |
           curl -LO "https://dl.k8s.io/release/$(curl -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
           chmod +x kubectl
           sudo mv kubectl /usr/local/bin/
 
-      - name: 11. Configure AWS credentials
+      - name: 12. Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v3
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ env.AWS_REGION }}
     
-      - name: 12. Update kubeconfig for EKS
+      - name: 13. Update kubeconfig for EKS
         run: |
           aws eks update-kubeconfig --region $AWS_REGION --name istory
