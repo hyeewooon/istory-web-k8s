@@ -114,4 +114,4 @@ jobs:
     
       - name: 12. Update kubeconfig for EKS
         run: |
-          aws eks update-kubeconfig --region $AWS_REGION --name your-cluster-name
+          aws eks update-kubeconfig --region $AWS_REGION --name istory
